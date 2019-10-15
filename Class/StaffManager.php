@@ -7,13 +7,13 @@ class StaffManager
 
     public function __construct()
     {
-        $db = new ConnectDB("mysql:host=localhost;dbname=studentManager", "root", "khongbiet1");
+        $db = new ConnectDB("mysql:host=localhost;dbname=staffManager", "root", "khongbiet1");
         $this->staffDB = $db->connect();
     }
 
     public function getAll()
     {
-        $sql = "SELECT * FROM students";
+        $sql = "SELECT * FROM staffs";
         $stmt = $this->staffDB->query($sql);
         $stmt = $stmt->fetchAll();
         $staffs = [];
@@ -27,7 +27,7 @@ class StaffManager
 
     public function addStaff($staff)
     {
-        $sql = "INSERT INTO students (name , phone) VALUES (:name ,:phone)";
+        $sql = "INSERT INTO staffs (name , phone) VALUES (:name ,:phone)";
         $stmt = $this->staffDB->prepare($sql);
         $stmt->bindParam(":name", $staff->getName());
         $stmt->bindParam(":phone", $staff->getPhone());
@@ -36,7 +36,7 @@ class StaffManager
 
     public function deleteStaffById($id)
     {
-        $sql = "DELETE FROM students WHERE id=? ";
+        $sql = "DELETE FROM staffs WHERE id=? ";
         $stmt = $this->staffDB->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
@@ -44,7 +44,7 @@ class StaffManager
 
     public function findStaffById($id)
     {
-        $sql = "SELECT name,phone FROM students WHERE id = ? ";
+        $sql = "SELECT name,phone FROM staffs WHERE id = ? ";
         $stmt = $this->staffDB->prepare($sql);
         $stmt->bindParam(1, $id);
         $stmt->execute();
@@ -57,7 +57,7 @@ class StaffManager
 
     public function updateInformation($id, $student)
     {
-        $sql = "UPDATE students SET name=:name ,phone=:phone WHERE id=:id ";
+        $sql = "UPDATE staffs SET name=:name ,phone=:phone WHERE id=:id ";
         $stmt = $this->staffDB->prepare($sql);
         $stmt->bindParam(":name", $student->getName());
         $stmt->bindParam(":phone", $student->getPhone());
